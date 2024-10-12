@@ -3,7 +3,7 @@ name: Sync hammad/milestone-4 to Staging
 on:
   push:
     branches:
-      - hammad/milestone-4  # Trigger when there is a push on this branch
+      - hammad/milestone-4 
 
 jobs:
   sync:
