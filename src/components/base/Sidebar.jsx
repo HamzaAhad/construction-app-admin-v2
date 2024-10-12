@@ -44,8 +44,7 @@ const Sidebar = ({ scopes, currentPage }) => {
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer(false)}
-        classes={{ paper: "bg-gradient-custom text-white" }}
-      >
+        classes={{ paper: "bg-gradient-custom text-white" }}>
         <ResponsiveSideBar
           currentPage={currentPage}
           isSmall={true}

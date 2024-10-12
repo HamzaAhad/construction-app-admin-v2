@@ -11,6 +11,13 @@ module.exports = {
         xs: "475px", // Example: Custom screen size for extra small devices
         xxl: "1300px", // Example: Custom screen size for very large devices
         custom: "1440px", // Example: Custom screen size named 'custom'
+        "h-sm": { raw: "(min-height: 608px)" },
+        "h-md": { raw: "(min-height: 808px)" },
+        "h-lg": { raw: "(min-height: 1024px)" },
+      },
+      fontFamily: {
+        bebas: ['"Bebas Neue"', "cursive"], // Add the Bebas Neue font family
+        galada: ['"Galada"', "cursive"],
       },
 
       keyframes: {

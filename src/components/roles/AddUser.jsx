@@ -65,19 +65,19 @@ const AddUser = ({ isOpen, onClose, refreshList, id }) => {
       bg="bg-buttonColorPrimary"
       title="Associate User">
       <div>
-        <label className="block mb-2">Select User</label>
+        <label className="block mb-2 text-black">Select User</label>
         <select
-          className="border rounded-md p-2 w-full"
+          className="border text-black rounded-md p-2 w-full"
           value={selectedUser ? selectedUser.id : ""}
           onChange={(e) => {
             const user = users.find((u) => u.id == e.target.value);
             setSelectedUser(user);
           }}>
-          <option value="" disabled>
+          <option className="text-black" value="" disabled>
             Select a user
           </option>
           {users.map((user) => (
-            <option key={user.id} value={user.id}>
+            <option className="text-black" key={user.id} value={user.id}>
               {`${user.firstName} ${user.lastName}`}
             </option>
           ))}

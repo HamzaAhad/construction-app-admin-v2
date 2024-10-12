@@ -19,6 +19,7 @@ import DeleteRecord from "../categories/DeleteRecord.";
 import PreviewForm from "../categories/PreviewForm";
 import ClosedIssue from "../categories/ClosedIssue";
 import { Router, useRouter } from "next/router";
+import apiClient from "@/helpers/interceptor";
 
 const Table = ({
   columns,
@@ -50,6 +51,7 @@ const Table = ({
   const [eventFields, setEventFields] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [entityId, setEntityId] = useState();
+  const [companies, setCompanies] = useState([]);
   const open = Boolean(anchorEl);
 
   const handleClick = (event, id, row) => {
@@ -89,14 +91,23 @@ const Table = ({
       : null;
 
   // Check if the user title is "Product Owner"
+  const getCompanies = async () => {
+    try {
+      const response = await apiClient.get("/company");
+      setCompanies(response?.data?.company);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   const isProductOwner =
     loggedInUser && loggedInUser?.user?.roleTitle === "Product Owner";
   const modifiedColumns = useMemo(() => {
     const newColumns = [...columns]; // Create a shallow copy of columns
 
     if (isProductOwner) {
+      getCompanies();
       newColumns.splice(2, 0, {
-        name: "Company Id",
+        name: "Company Name",
         minWidth: "200px",
         key: "companyId",
       }); // Insert at index 2
@@ -104,9 +115,6 @@ const Table = ({
 
     return newColumns;
   }, [columns, isProductOwner]);
-  console.log("rows", rows);
-  console.log("columns", columns);
-  console.log("modified column", modifiedColumns);
   return (
     <div className="overflow-x-auto scroll-bar-custom shadow-sm">
       <table className="min-w-full bg-white mb-20 md:mb-0">
@@ -130,7 +138,9 @@ const Table = ({
                   key={colIndex}
                   className="text-center py-4 px-6 text-gray-700 text-base font-normal">
                   {column.key === "companyId" ? (
-                    row.companyId
+                    // row.companyId
+                    companies?.find((company) => company.id == row.companyId)
+                      ?.name || "Unknown Company"
                   ) : /* Status Column */ column.key === "status" ? (
                     <div
                       className={`inline-block px-3 py-1 rounded-full text-white w-24 text-center ${

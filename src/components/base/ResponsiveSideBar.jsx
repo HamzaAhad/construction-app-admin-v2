@@ -75,12 +75,22 @@ const ResponsiveSideBar = ({
             className="w-40 h-20 object-contain"
           />
         </div>
+      ) : companyName ? (
+        <div className="flex items-center justify-start mx-8 mt-5 mb-5 h-11">
+          <div className="text-4xl font-galada font-bold text-transparent bg-gradient-to-r from-[#3a9dbd] to-[#5bc1da] bg-clip-text animate-gradient mx-auto">
+            {companyName}
+          </div>
+          <div className="relative ml-3 flex-shrink-0 rounded-full w-2 h-2 bg-[#5bc1da] animate-ping"></div>
+        </div>
       ) : (
-        <div className="flex items-start justify-start text-[32px] font-bold animate-pulse text-white mx-8 mt-5 mb-5 h-11">
-          {companyName}
+        <div className="flex items-center justify-start mx-8 mt-5 mb-5 h-11">
+          <div className="text-4xl font-galada font-bold text-transparent bg-gradient-to-r from-[#3a9dbd] to-[#5bc1da] bg-clip-text animate-gradient mx-auto">
+            SssManage
+          </div>
+          <div className="relative ml-3 flex-shrink-0 rounded-full w-2 h-2 bg-[#5bc1da] animate-ping"></div>
         </div>
       )}
-      <div className="flex-1 ml-5 mt-20">
+      <div className="flex-1 ml-5 mt-5">
         <ul>
           {filteredItems?.map((item, index) => (
             <div
@@ -96,7 +106,7 @@ const ResponsiveSideBar = ({
               }}
               key={index}>
               <li
-                className={`flex  items-center p-4 mt-2 hover:bg-lightBlue cursor-pointer rounded-l-lg ${
+                className={`flex  items-center px-4 py-[10px]  hover:bg-lightBlue cursor-pointer rounded-l-lg ${
                   currentPage == item?.name ? "bg-lightBlue" : ""
                 }`}>
                 {item?.icon && (

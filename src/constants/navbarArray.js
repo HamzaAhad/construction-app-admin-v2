@@ -12,16 +12,16 @@ import {
 import { IoMdKey } from "react-icons/io";
 
 export const Items = [
-  {
-    name: "",
-    link: "",
-    icon: "",
-  },
-  {
-    name: "",
-    link: "",
-    icon: "",
-  },
+  // {
+  //   name: "",
+  //   link: "",
+  //   icon: "",
+  // },
+  // {
+  //   name: "",
+  //   link: "",
+  //   icon: "",
+  // },
   {
     name: "Dashboard",
     link: "/dashboard",

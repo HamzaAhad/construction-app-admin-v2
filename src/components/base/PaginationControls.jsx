@@ -4,7 +4,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   if (totalPages <= 1) return null; // Don't show pagination if there's only one page
 
   return (
-    <div className="flex justify-center items-center mt-4">
+    <div className="flex justify-between items-center mt-4">
       <button
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
@@ -15,7 +15,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       </button>
 
       {/* Page Numbers */}
-      {[...Array(totalPages)].map((_, index) => (
+      {/* {[...Array(totalPages)].map((_, index) => (
         <button
           key={index}
           onClick={() => onPageChange(index + 1)}
@@ -24,7 +24,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           } text-white rounded`}>
           {index + 1}
         </button>
-      ))}
+      ))} */}
 
       <button
         disabled={currentPage === totalPages}

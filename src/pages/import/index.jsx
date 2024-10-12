@@ -10,7 +10,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { checkScope } from "@/helpers/checkScope";
 
 const Index = ({ scopes, canEdit = true }) => {
-  const [selectedItem, setSelectedItem] = useState("clients");
+  const [selectedItem, setSelectedItem] = useState("employees");
   const [loading, setLoading] = useState(true); // New loading state
   const router = useRouter();
   const { stepSize } = router.query;
@@ -42,13 +42,11 @@ const Index = ({ scopes, canEdit = true }) => {
       scopes={scopes}
       title="Manage Import"
       currentPage="Manage Import"
-      step={stepSize ? true : false}
-    >
+      step={stepSize ? true : false}>
       {stepSize ? (
         <button
           onClick={handleBackToSetup}
-          className="px-6 py-2 mx-8 mt-4 flex justify-between space-x-2 text-white bg-buttonColorPrimary hover:bg-blue-500 rounded-lg"
-        >
+          className="px-6 py-2 mx-8 mt-4 flex justify-between space-x-2 text-white bg-buttonColorPrimary hover:bg-blue-500 rounded-lg">
           <FaArrowLeft className="mt-1" />
           <span>Back to setup</span>
         </button>

@@ -301,6 +301,7 @@ const AddSite = ({ isOpen, onClose, refreshList, siteId }) => {
       } else {
         response = await apiClient.post("/sites", body);
       }
+      console.log("response in site", response);
       if (response) {
         toast.success("Site added successfully");
         setName("");
@@ -312,7 +313,7 @@ const AddSite = ({ isOpen, onClose, refreshList, siteId }) => {
         await refreshList();
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
       setLoading(false);
     }
   };
@@ -345,12 +346,12 @@ const AddSite = ({ isOpen, onClose, refreshList, siteId }) => {
           />
           <HiSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" />
           {searchResults.length > 0 && (
-            <ul className="absolute bg-white border rounded w-full mt-1 max-h-40 overflow-y-auto z-10">
+            <ul className="absolute bg-white text-black border rounded w-full mt-1 max-h-40 overflow-y-auto z-10">
               {searchResults.map((result) => (
                 <li
                   key={result.place_id}
                   onClick={() => handleSelectSearchResult(result)}
-                  className="cursor-pointer p-2 hover:bg-gray-200">
+                  className="cursor-pointer text-black p-2 hover:bg-gray-200">
                   {result.description}
                 </li>
               ))}
