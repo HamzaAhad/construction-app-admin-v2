@@ -34,6 +34,6 @@ jobs:
         run: |
           git remote add personal git@github.com:HamzaAhad/construction-app-admin-v2.git
           git fetch personal
-          git checkout -b staging personal/staging || git checkout staging  # Create the staging branch if it doesn't exist
+          git checkout -b staging personal/staging || git checkout staging  
           git merge hammad/milestone-4 --allow-unrelated-histories  # Merge the changes from the organizational repo
           git push personal staging --force  # Push to the staging branch in the personal repo
