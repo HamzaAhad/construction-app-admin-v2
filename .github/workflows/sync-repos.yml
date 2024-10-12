@@ -24,19 +24,19 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan -H 88.222.220.249 >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Test SSH Connection
         run: |
-          ssh -v root@88.222.220.249 exit
+          ssh -v ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} exit
 
 
       - name: Run deployment script
         run: |
           echo "Running deployment script on the server..."
-          ssh root@88.222.220.249 << 'EOF'
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd /var/www/
-            chmod chmod +x sync_repos.sh
+            chmod +x sync_repos.sh
             ./sync_repos.sh
           EOF
