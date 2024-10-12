@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - hammad/milestone-4 # branch sync repos
+      - hammad/milestone-4 # update change
 
 jobs:
   deploy:
