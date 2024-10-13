@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const AddCategory = ({ isOpen, onClose, refreshList }) => {
   const [categoryName, setCategoryName] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleChange = async (e) => {
     const value = e.target.value;
     setCategoryName(value);
@@ -21,6 +21,7 @@ const AddCategory = ({ isOpen, onClose, refreshList }) => {
       return;
     }
     try {
+      setLoading(true);
       const response = await apiClient.post("/folders", {
         title: categoryName,
       });
@@ -29,6 +30,8 @@ const AddCategory = ({ isOpen, onClose, refreshList }) => {
       await refreshList();
     } catch (err) {
       toast.error(err?.response?.data?.message || err?.response?.data?.error);
+    } finally {
+      setLoading(false);
     }
     setCategoryName("");
     setError("");

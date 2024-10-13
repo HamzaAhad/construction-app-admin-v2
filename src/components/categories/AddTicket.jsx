@@ -16,7 +16,7 @@ const FileUploader = ({ isOpen, onClose, refreshList }) => {
   const [fileName, setFileName] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState(null);
   const [fileUploading, setFileUploading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleImageUpload = async (file) => {
@@ -64,6 +64,7 @@ const FileUploader = ({ isOpen, onClose, refreshList }) => {
       description: description?.replace(/<\/?[^>]+(>|$)/g, ""),
     };
     try {
+      setLoading(true);
       const response = await apiClient.post("/tickets", body);
       toast.success(response?.data?.message);
       onClose(false);
@@ -72,6 +73,8 @@ const FileUploader = ({ isOpen, onClose, refreshList }) => {
     } catch (err) {
       toast.error(err?.response?.data?.message);
       console.log("Error--->", err);
+    } finally {
+      setLoading(false);
     }
     // Perform submit logic here
   };
@@ -88,7 +91,8 @@ const FileUploader = ({ isOpen, onClose, refreshList }) => {
       buttonText="Add Ticket"
       bg="bg-buttonColorPrimary"
       setImages={setFiles}
-      title="Add Ticket">
+      title="Add Ticket"
+      loading={loading}>
       <div className="flex flex-col w-[100%] space-y-4 overflow-y-auto max-h-[60vh] justify-between">
         <div className="flex flex-col w-full space-y-2 px-2">
           <label className="text-start text-lg font-medium">Add Image</label>

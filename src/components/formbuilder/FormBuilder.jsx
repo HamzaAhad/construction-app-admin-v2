@@ -88,7 +88,6 @@ const FormBuilder = ({ canEdit = true }) => {
   const [addNameModal, setAddNameModal] = useState(false);
   const [recordId, setRecordId] = useState();
   const [name, setName] = useState("");
-
   const [formData, setFormData] = useState({
     formName: "",
   });
@@ -123,6 +122,7 @@ const FormBuilder = ({ canEdit = true }) => {
       setAddNameModal(false);
     } else {
       try {
+        setLoading(true);
         const response = await apiClient.post("/components", body);
         if (response) {
           setName("");
@@ -133,6 +133,7 @@ const FormBuilder = ({ canEdit = true }) => {
         toast.error(err.message);
       } finally {
         setAddNameModal(false);
+        setLoading(false);
       }
     }
   };
@@ -281,6 +282,7 @@ const FormBuilder = ({ canEdit = true }) => {
         name={name}
         setName={setName}
         onSubmit={handleNameSubmit}
+        loading={loading}
       />
     </div>
   );

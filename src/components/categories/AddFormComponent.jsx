@@ -6,7 +6,14 @@ import InputField from "@/components/base/InputField";
 import apiClient from "@/helpers/interceptor";
 import { toast } from "react-toastify";
 
-const AddFormComponent = ({ isOpen, onClose, name, setName, onSubmit }) => {
+const AddFormComponent = ({
+  isOpen,
+  onClose,
+  name,
+  setName,
+  onSubmit,
+  loading,
+}) => {
   const [error, setError] = useState("");
   const handleChange = async (e) => {
     const value = e.target.value;
@@ -21,7 +28,8 @@ const AddFormComponent = ({ isOpen, onClose, name, setName, onSubmit }) => {
       onError={setError}
       buttonText="Add Component"
       bg="bg-buttonColorPrimary"
-      title="Add Form Component">
+      title="Add Form Component"
+      loading={loading}>
       <InputField
         label="Component Name"
         name="name"

@@ -118,8 +118,14 @@ const SignUp = () => {
       </Head>
       <Box
         className={` relative w-[100%] lg:w-[25%] min-h-[130vh] lg:min-h-[100vh] bg-gradient-custom`}>
-        <div className="flex items-center justify-center mt-20 mb-10 h-1">
+        {/* <div className="flex items-center justify-center mt-20 mb-10 h-1">
           <Animation path={logo} />
+        </div> */}
+        <div className="flex items-center justify-start mx-8 mt-5 mb-5 h-11">
+          <div className="text-4xl font-galada font-bold text-transparent bg-gradient-to-r from-[#3a9dbd] to-[#5bc1da] bg-clip-text animate-gradient mx-auto">
+            SssManage
+          </div>
+          <div className="relative ml-3 flex-shrink-0 rounded-full w-2 h-2 bg-[#5bc1da] animate-ping"></div>
         </div>
         <CardMedia
           component="img"
