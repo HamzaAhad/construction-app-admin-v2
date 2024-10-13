@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu"; // Import a menu icon from Heroicons (or any icon library)
 import Drawer from "@mui/material/Drawer";
-
+import { CardMedia } from "@mui/material";
 import ResponsiveSideBar from "./ResponsiveSideBar";
 
 const Sidebar = ({ scopes, currentPage }) => {
