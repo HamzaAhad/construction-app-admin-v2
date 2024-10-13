@@ -8,32 +8,37 @@ const DownloadCSV = () => {
     {
       firstName: "Emily",
       lastName: "Green",
-      email: "emily.green@example.com",
+      email: null,
       roleTitle: "User",
+      phone: "+92123456789",
     },
     {
       firstName: "James",
       lastName: "White",
-      email: "james.white@example.com",
+      email: null,
       roleTitle: "User",
+      phone: "+92123456721",
     },
     {
       firstName: "Olivia",
       lastName: "Brown",
       email: "olivia.brown@example.com",
       roleTitle: "User",
+      phone: "+92123456757",
     },
     {
       firstName: "Liam",
       lastName: "Johnson",
       email: "liam.johnson@example.com",
       roleTitle: "User",
+      phone: null,
     },
     {
       firstName: "Sophia",
       lastName: "Wilson",
       email: "sophia.wilson@example.com",
       roleTitle: "User",
+      phone: null,
     },
   ];
 
