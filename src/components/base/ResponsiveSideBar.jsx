@@ -17,20 +17,20 @@ const ResponsiveSideBar = ({
   isSmall,
   drawerOpen,
   scopes,
+  companyName,
+  companyLogo,
 }) => {
   const [filteredItems, setFilteredItems] = useState(null); // Default to all items
-  const [companyName, setCompanyName] = useState();
-  const [companyLogo, setCompanyLogo] = useState();
   const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-      if (loggedInUser?.comapany?.logo) {
-        setCompanyLogo(loggedInUser?.comapany?.logo);
-      } else {
-        setCompanyName(loggedInUser?.comapany?.name);
-      }
+      // if (loggedInUser?.comapany?.logo) {
+      //   setCompanyLogo(loggedInUser?.comapany?.logo);
+      // } else {
+      //   setCompanyName(loggedInUser?.comapany?.name);
+      // }
       const allowedPages = compact(
         scopes?.map((scope) => {
           if (scope?.permissions?.viewAll) return scope?.page;
@@ -77,7 +77,10 @@ const ResponsiveSideBar = ({
         </div>
       ) : companyName ? (
         <div className="flex items-center justify-start mx-8 mt-5 mb-5 h-11">
-          <div className="text-4xl font-galada font-bold text-transparent bg-gradient-to-r from-[#3a9dbd] to-[#5bc1da] bg-clip-text animate-gradient mx-auto">
+          <div
+            className={`${
+              companyName.length > 10 ? "text-[28px]" : "text-4xl"
+            } font-galada font-bold text-transparent bg-gradient-to-r from-[#3a9dbd] to-[#5bc1da] bg-clip-text animate-gradient mx-auto`}>
             {companyName}
           </div>
           <div className="relative ml-3 flex-shrink-0 rounded-full w-2 h-2 bg-[#5bc1da] animate-ping"></div>
@@ -106,7 +109,7 @@ const ResponsiveSideBar = ({
               }}
               key={index}>
               <li
-                className={`flex  items-center px-4 py-[10px]  hover:bg-lightBlue cursor-pointer rounded-l-lg ${
+                className={`flex mt-[1px]  items-center px-4 py-[10px]  hover:bg-lightBlue cursor-pointer rounded-l-lg ${
                   currentPage == item?.name ? "bg-lightBlue" : ""
                 }`}>
                 {item?.icon && (

@@ -354,6 +354,7 @@ const Table = ({
                           <MenuItem>
                             <button
                               onClick={() => {
+                                handleClose();
                                 console.log(row);
                                 const canParseJson =
                                   typeof row[previewKey] === "string" &&

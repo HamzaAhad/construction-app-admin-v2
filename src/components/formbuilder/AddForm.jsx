@@ -12,7 +12,7 @@ const AddForm = ({ isOpen, onClose, refreshList }) => {
   const { categoryId } = router.query;
   const [error, setError] = useState("");
   const [formName, setFormName] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleChange = async (e) => {
     const value = e.target.value;
     setFormName(value);
@@ -24,6 +24,7 @@ const AddForm = ({ isOpen, onClose, refreshList }) => {
       return;
     }
     try {
+      setLoading(true);
       const response = await apiClient.post(`/forms/${categoryId}/folder`, {
         title: formName,
       });
@@ -33,10 +34,12 @@ const AddForm = ({ isOpen, onClose, refreshList }) => {
     } catch (err) {
       console.log("Server error:", err?.response?.data);
       toast.error(err?.response?.data?.message || err?.response?.data?.error);
+    } finally {
+      setLoading(false);
+      setFormName("");
+      setError("");
+      onClose(false);
     }
-    setFormName("");
-    setError("");
-    onClose(false);
   };
   return (
     <Modal
@@ -46,7 +49,8 @@ const AddForm = ({ isOpen, onClose, refreshList }) => {
       onError={setError}
       buttonText="Add Form"
       bg="bg-buttonColorPrimary"
-      title="Add Form">
+      title="Add Form"
+      loading={loading}>
       <InputField
         label="Form Name"
         name="FormName"

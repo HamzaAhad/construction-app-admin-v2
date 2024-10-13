@@ -120,7 +120,7 @@ const RecentActivities = () => {
   return (
     <div className="p-4 lg:mx-4 mt-2 animate-slideInLeft bg-white shadow rounded-lg w-full lg:w-[96%] transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
       <div className="flex justify-between">
-        <h3 className="text-lg text-buttonColorPrimary animate-pulse font-semibold mb-2">
+        <h3 className="text-[15px] sm:text-lg text-buttonColorPrimary animate-pulse font-semibold mb-2">
           Recent Activities
         </h3>
         <div className="flex border-b border-gray-200 mb-2">
@@ -162,21 +162,25 @@ const RecentActivities = () => {
 
       {activeTab === "all" ? (
         <>
-          <div className="flex   space-x-2">
-            <label className="mt-1 text-gray-950">From</label>
-            <input
-              type="date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-              className="px-1 border border-gray-300 rounded-lg"
-            />
-            <label className="mt-1 text-gray-950">To</label>
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-              className="px-1 border border-gray-300 rounded-lg"
-            />
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0   space-x-2">
+            <div className="flex space-x-2">
+              <label className="mt-1 text-gray-950">From</label>
+              <input
+                type="date"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+                className="px-1 border border-gray-300 rounded-lg"
+              />
+            </div>
+            <div className="flex space-x-1">
+              <label className="mt-1 text-gray-950">To</label>
+              <input
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+                className="px-1 border border-gray-300 rounded-lg"
+              />
+            </div>
             <button
               onClick={handleClick}
               className="px-4 bg-buttonColorPrimary rounded-[8px] text-gray-50">

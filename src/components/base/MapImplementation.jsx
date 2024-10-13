@@ -200,7 +200,7 @@ function MapImplementation({ activeCategory }) {
       {sites?.map((location, index) => (
         <Marker
           key={index}
-          position={[location.longitude, location.latitude]}
+          position={[location.latitude, location.longitude]}
           icon={createCustomIcon(location.color)}>
           <Tooltip>{location.label || "No label"}</Tooltip>
         </Marker>

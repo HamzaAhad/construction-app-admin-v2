@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const AddSubSite = ({ isOpen, onClose, refreshList, siteId }) => {
   const [categoryName, setCategoryName] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleChange = async (e) => {
     const value = e.target.value;
     setCategoryName(value);
@@ -20,6 +20,7 @@ const AddSubSite = ({ isOpen, onClose, refreshList, siteId }) => {
       return;
     }
     try {
+      setLoading(true);
       const response = await apiClient.post(`/sub-sites/${siteId}/site`, {
         name: categoryName,
       });
@@ -29,11 +30,12 @@ const AddSubSite = ({ isOpen, onClose, refreshList, siteId }) => {
     } catch (err) {
       console.log("Server error:", err?.response?.data);
       toast.error(err?.response?.data?.message || err?.response?.data?.error);
+    } finally {
+      setLoading(false);
+      setCategoryName("");
+      setError("");
+      onClose(false);
     }
-    console.log(categoryName);
-    setCategoryName("");
-    setError("");
-    onClose(false);
   };
 
   return (
@@ -44,7 +46,8 @@ const AddSubSite = ({ isOpen, onClose, refreshList, siteId }) => {
       onError={setError}
       buttonText="Add Sub Site"
       bg="bg-buttonColorPrimary"
-      title="Add Sub SIte">
+      title="Add Sub SIte"
+      loading={loading}>
       <InputField
         label="Sub Site Name"
         name="categoryName"

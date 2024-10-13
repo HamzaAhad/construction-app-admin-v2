@@ -138,7 +138,7 @@ const PermissionListing = () => {
                     />
                     <span className="w-6 h-6 border border-gray-300 rounded-md flex items-center justify-center transition-colors duration-300 ease-in-out mr-2">
                       <span
-                        className={`w-4 h-4 rounded-md ${
+                        className={`w-4 h-4 rounded-md cursor-pointer ${
                           job.permissions[
                             perm === "View All" ? "viewAll" : "editAll"
                           ]

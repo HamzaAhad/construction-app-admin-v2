@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const AddRole = ({ isOpen, onClose, refreshList }) => {
   const [role, setRole] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleChange = async (e) => {
     const value = e.target.value;
     setRole(value);
@@ -21,6 +21,7 @@ const AddRole = ({ isOpen, onClose, refreshList }) => {
       return;
     }
     try {
+      setLoading(true);
       const response = await apiClient.post("/roles", {
         title: role,
       });
@@ -32,6 +33,8 @@ const AddRole = ({ isOpen, onClose, refreshList }) => {
     } catch (err) {
       toast.error(err?.response?.data?.message || err?.response?.data?.error);
       setError("");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -43,7 +46,7 @@ const AddRole = ({ isOpen, onClose, refreshList }) => {
       buttonText="Add Role"
       bg="bg-buttonColorPrimary"
       title="Add Role"
-    >
+      loading={loading}>
       <InputField
         label="Role"
         name="role"
