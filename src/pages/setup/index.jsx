@@ -136,9 +136,9 @@ const Index = () => {
           minHeight: "100vh",
         }}
         className={`${theme} w-[100%] lg:w-[25%]`}>
-        <div className="flex items-center justify-center mt-20 mb-10 h-1">
+        {/* <div className="flex items-center justify-center mt-20 mb-10 h-1">
           <Animation path={logo} />
-        </div>
+        </div> */}
 
         <CardMedia
           component="img"
