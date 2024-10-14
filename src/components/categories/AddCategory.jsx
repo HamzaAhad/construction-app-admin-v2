@@ -43,9 +43,9 @@ const AddCategory = ({ isOpen, onClose, refreshList }) => {
       isOpen={isOpen}
       onClose={onClose}
       onError={setError}
-      buttonText="Add Category"
+      buttonText="Add Inspection Category"
       bg="bg-buttonColorPrimary"
-      title="Add Category"
+      title="Add Inspection Category"
       loading={loading}>
       <InputField
         label="Category Name"

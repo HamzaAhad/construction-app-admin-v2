@@ -68,7 +68,7 @@ const ResponsiveSideBar = ({
         <Animation path={logo} />
       </div> */}
       {companyLogo ? (
-        <div className="flex items-start justify-start text-[32px] font-bold animate-pulse text-white mx-8 mt-2 mb-10">
+        <div className="flex items-start justify-start text-[32px] font-bold text-white mx-8 mt-2 mb-10">
           <CardMedia
             component="img"
             image={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${companyLogo}`}

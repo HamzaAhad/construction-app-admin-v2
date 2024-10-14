@@ -4,15 +4,25 @@ import MenuIcon from "@mui/icons-material/Menu"; // Import a menu icon from Hero
 import Drawer from "@mui/material/Drawer";
 import { CardMedia } from "@mui/material";
 import ResponsiveSideBar from "./ResponsiveSideBar";
+import apiClient from "@/helpers/interceptor";
 
 const Sidebar = ({ scopes, currentPage }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [companyName, setCompanyName] = useState();
   const [companyLogo, setCompanyLogo] = useState();
 
+  const fetchUser = async (id) => {
+    try {
+      const user = await apiClient.get(`users/${id}`);
+      if (user?.data.userCompany.logo) {
+        setCompanyLogo(user?.data?.userCompany?.logo);
+      }
+    } catch (err) {}
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      fetchUser(loggedInUser.user.id);
       if (loggedInUser?.comapany?.logo) {
         setCompanyLogo(loggedInUser?.comapany?.logo);
       } else {
@@ -46,13 +56,13 @@ const Sidebar = ({ scopes, currentPage }) => {
       </div>
 
       {/* Navbar for small screens */}
-      <div className="lg:hidden flex justify-between items-center h-[60px] px-4 py-2 bg-gradient-custom text-white">
+      <div className="lg:hidden flex justify-between items-center h-[80px] px-4 py-2 bg-gradient-custom text-white">
         {companyLogo ? (
-          <div className="flex items-start justify-start text-[32px] font-bold animate-pulse text-white mx-8 mt-2 mb-10">
+          <div className="flex items-start justify-start text-[32px] font-bold text-white mt-10 mb-10">
             <CardMedia
               component="img"
               image={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${companyLogo}`}
-              className="w-40 h-20 object-contain"
+              className="w-40 h-16 object-cover"
             />
           </div>
         ) : companyName ? (

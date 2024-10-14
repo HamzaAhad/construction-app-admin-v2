@@ -12,8 +12,8 @@ const ImportFeatures = ({ selectedItem, setSelectedItem }) => {
   const features = [
     // { name: "clients", icon: <FaUsers className="text-2xl" /> },
     { name: "employees", icon: <FaBuilding className="text-2xl" /> },
-    { name: "categories", icon: <FaFolder className="text-2xl" /> },
-    { name: "reports", icon: <FaFileAlt className="text-2xl" /> },
+    // { name: "categories", icon: <FaFolder className="text-2xl" /> },
+    // { name: "reports", icon: <FaFileAlt className="text-2xl" /> },
     // { name: "settings", icon: <FaCog className="text-2xl" /> },
   ];
 
