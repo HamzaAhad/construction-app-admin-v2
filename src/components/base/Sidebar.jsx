@@ -40,6 +40,8 @@ const Sidebar = ({ scopes, currentPage }) => {
           isSmall={false}
           toggleDrawer={setDrawerOpen}
           scopes={scopes}
+          companyName={companyName}
+          companyLogo={companyLogo}
         />
       </div>
 
@@ -88,6 +90,8 @@ const Sidebar = ({ scopes, currentPage }) => {
           isSmall={true}
           toggleDrawer={setDrawerOpen}
           drawerOpen={drawerOpen}
+          companyName={companyName}
+          companyLogo={companyLogo}
           scopes={scopes}
         />
       </Drawer>
