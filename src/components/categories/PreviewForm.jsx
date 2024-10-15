@@ -184,15 +184,15 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
               case "user-e-sign":
                 return (
                   <div key={index} className="mt-5 p-2">
-                    {field?.src ? (
+                    {field?.answer ? (
                       <div className="rounded-lg border border-gray-500 p-2">
                         <label className="text-black text-sm font-medium">
                           {field.textValue}
                         </label>
                         <img
-                          src={field?.src}
+                          src={`data:image/png;base64,${field?.answer}`}
                           alt="Signature"
-                          className="h-28 w-full object-cover rounded-lg"
+                          className="h-28 w-full object-contain rounded-lg"
                         />
                       </div>
                     ) : (
@@ -264,7 +264,7 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
                   Date{" "}
                 </div>
                 <div className="text-black text-[14px] px-1">
-                  {formFields?.basicInformation?.date}{" "}
+                  {formFields?.basicInformation?.Date}{" "}
                 </div>
               </div>
               <div className="flex justify-start">
@@ -272,15 +272,15 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
                   Time{" "}
                 </div>
                 <div className="text-black text-[14px] px-1">
-                  {formFields?.basicInformation?.time}{" "}
+                  {formFields?.basicInformation?.Time}{" "}
                 </div>
               </div>
               <div className="flex justify-start">
-                <div className="text-black text-[14px] px-1">
-                  {formFields?.basicInformation?.location}{" "}
-                </div>
                 <div className="text-black text-[14px] px-1 font-medium">
                   Location{" "}
+                </div>
+                <div className="text-black text-[14px] px-1">
+                  {formFields?.basicInformation?.Location}{" "}
                 </div>
               </div>
               <div className="flex justify-start">
@@ -288,12 +288,12 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
                   Describe Location
                 </div>
                 <div className="text-black text-[14px] px-1 font-medium">
-                  {formFields?.basicInformation?.descriptionOfDescription}
+                  {formFields?.basicInformation["Location Description"]}
                 </div>
               </div>
             </div>
 
-            <div className="text-black text-2xl font-bold p-2 mt-2">
+            {/* <div className="text-black text-2xl font-bold p-2 mt-2">
               Additional Information
             </div>
 
@@ -362,10 +362,10 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
             </div>
 
             <PreviewField
-              label="Was there injury to a community member (not a Vale employee/contractor/subcontractor)?"
+              label="Was there injury to a community member(not a Al-Muhiba employee / contractor / subcontractor)?"
               answer={
                 formFields?.community[
-                  "Was there injury to a community member(not a Vale employee / contractor / subcontractor)?"
+                  "Was there injury to a community member(not a Al-Muhiba employee / contractor / subcontractor)?"
                 ]
               }
             />
@@ -381,16 +381,18 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
             <div className="text-black text-2xl font-bold p-2 mt-2">People</div>
 
             <PreviewField
-              label="Was a Vale employee or contractor injured?"
+              label="COULD this event have injured or lead to health impacts to a Al-Muhiba employee or contractor?"
               answer={
-                formFields?.people["Was a Vale employee or contractor injured?"]
+                formFields?.people[
+                  "COULD this event have injured or lead to health impacts to a Al-Muhiba employee or contractor?"
+                ]
               }
             />
             <PreviewField
-              label="COULD this event have injured or lead to health impacts to a Vale employee or contractor?"
+              label="Was a Al-Muhiba employee or contractor injured?"
               answer={
                 formFields?.people[
-                  "COULD this event have injured or lead to health impacts to a Vale employee or contractor?"
+                  "Was a Al-Muhiba employee or contractor injured?"
                 ]
               }
             />
@@ -401,7 +403,33 @@ const PreviewForm = ({ isOpen, onClose, formFields, event }) => {
                   "COULD this event have led to a fatality or a life change?"
                 ]
               }
-            />
+            /> */}
+            {[
+              "additionalInformation",
+              "assets",
+              "environment",
+              "community",
+              "people",
+            ].map((section) => (
+              <div key={section}>
+                <div className="text-black capitalize text-2xl font-bold p-2 mt-2">
+                  {section.replace(/([A-Z])/g, " $1")}
+                </div>
+                {formFields?.[section] ? (
+                  Object.entries(formFields[section]).map(([label, answer]) => (
+                    <PreviewField
+                      key={label}
+                      label={label}
+                      answer={answer || "N/A"}
+                    />
+                  ))
+                ) : (
+                  <div className="text-gray-500">
+                    No data available for {section}
+                  </div>
+                )}
+              </div>
+            ))}
 
             <div className="text-black text-2xl font-bold p-2 mt-2">
               Event Description
