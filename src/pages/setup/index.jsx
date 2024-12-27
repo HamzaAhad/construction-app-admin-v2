@@ -11,7 +11,7 @@ import { IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import axios from "axios";
 /* import components */
-import Animation from "@/components/animations/Animation";
+// import Animation from "@/components/animations/Animation";
 
 import logo from "../../../public/pollo.json";
 import { StepButton } from "@mui/material";

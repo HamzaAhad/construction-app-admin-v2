@@ -15,7 +15,7 @@ import CardMedia from "@mui/material/CardMedia";
 import InputField from "@/components/base/InputField";
 import FormButton from "@/components/base/FormButton";
 import FormHeading from "@/components/base/FormHeading";
-import Animation from "@/components/animations/Animation";
+// import Animation from "@/components/animations/Animation";
 
 import logo from "../../../public/pollo.json";
 

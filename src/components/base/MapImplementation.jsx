@@ -99,6 +99,7 @@ function MapImplementation({ activeCategory }) {
   const [allSites, setAllSites] = useState([]);
   const [eventSites, setEventSites] = useState([]);
   const [issueSites, setIssueSites] = useState([]);
+  const [mapCenter, setMapCenter] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -161,15 +162,21 @@ function MapImplementation({ activeCategory }) {
     }
   }, [activeCategory, eventSites, issueSites, allSites]);
 
+  useEffect(() => {
+    if (sites.length > 0) {
+      const lastSite = sites[sites.length - 1];
+      setMapCenter([lastSite.longitude, lastSite.latitude]);
+    }
+  }, [sites]);
   if (!isClient) return null;
 
   function MapBounds() {
     const map = useMap();
 
     useEffect(() => {
-      if (locations.length) {
+      if (sites.length) {
         const bounds = new L.LatLngBounds(
-          locations.map((loc) => [loc.latitude, loc.longitude])
+          sites.map((loc) => [loc.latitude, loc.longitude])
         );
         map.fitBounds(bounds);
       }
@@ -187,10 +194,13 @@ function MapImplementation({ activeCategory }) {
     });
   };
 
+  if (mapCenter?.length < 2) {
+    return null;
+  }
   console.log(sites);
   return (
     <MapContainer
-      center={center}
+      center={mapCenter}
       zoom={0}
       style={{ height: "350px", width: "100%" }}>
       <TileLayer

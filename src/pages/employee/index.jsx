@@ -17,6 +17,8 @@ const columns = [
   { name: "Email", minWidth: "250px", key: "email" },
   { name: "Phone", minWidth: "250px", key: "phone" },
   { name: "Status", minWidth: "100px", key: "status" },
+  { name: "Inspection Count", minWidth: "250px", key: "inspectionCount" },
+  { name: "Event Count", minWidth: "200px", key: "eventCount" },
   { name: "User Stats", minWidth: "150px", key: "viewDetails" },
   { name: "Created By", minWidth: "180px", key: "createdBy" },
   { name: "Created At", minWidth: "180px", key: "createdAt" },
@@ -38,7 +40,7 @@ const Index = ({ scopes, canEdit = true }) => {
       setLoading(true);
       const response = await apiClient.get("/users");
 
-      console.log(response);
+      console.log("User data", response);
       setData(JSON.parse(JSON.stringify(response?.data))); // Set the fetched data into the state
     } catch (err) {
       setError(err); // Handle error

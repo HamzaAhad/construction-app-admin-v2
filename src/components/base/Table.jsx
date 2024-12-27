@@ -169,6 +169,9 @@ const Table = ({
                       className=" hover:text-blue-500 hover:underline">
                       {row[column.key]}
                     </Link>
+                  ) : /* Link for form folder */ column.key === "eventCount" ||
+                    column.key === "inspectionCount" ? (
+                    row[column.key]
                   ) : /* Link for Site location */ column.key === "name" &&
                     column.link ? (
                     <Link

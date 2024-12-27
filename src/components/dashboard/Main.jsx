@@ -178,6 +178,7 @@ const Dashboard = ({ scopes }) => {
       console.error("Error fetching last 4 weeks data:", error);
     }
   };
+
   const getPieChartData = async () => {
     try {
       const response = await apiClient.get("/analytics/pie-chart");

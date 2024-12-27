@@ -9,9 +9,6 @@ import { checkScope } from "@/helpers/checkScope";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import axios from "axios";
-import { notFound } from "next/navigation";
-
 export default function Home({ scopes }) {
   const [checkLoading, setChecktLoading] = useState(true); // New loading state
   const router = useRouter();
