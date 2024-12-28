@@ -22,7 +22,7 @@ const Sidebar = ({ scopes, currentPage }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-      fetchUser(loggedInUser.user.id);
+      fetchUser(loggedInUser?.user?.id);
       if (loggedInUser?.comapany?.logo) {
         setCompanyLogo(loggedInUser?.comapany?.logo);
       } else {
