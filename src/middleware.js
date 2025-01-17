@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // 1. Specify protected and public routes
-const publicRoutes = ["/login", "/signup", "/"];
+const publicRoutes = ["/login", "/signup", "/", "/reset"];
 
 export default async function middleware(req) {
   // 2. Check if the current route is protected or public

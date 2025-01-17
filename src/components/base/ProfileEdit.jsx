@@ -106,7 +106,7 @@ const ProfileEdit = () => {
         setOldPassword("");
         setNewPassword("");
       } else {
-        toast.error(result.message || "Failed to change password.");
+        toast.error(response?.message || "Failed to change password.");
       }
     } catch (error) {
       console.error("Error changing password:", error);

@@ -41,6 +41,7 @@ const Sidebar = ({ scopes, currentPage }) => {
     setDrawerOpen(open);
   };
 
+  console.log("company logo", companyLogo);
   return (
     <>
       {/* Sidebar for large screens */}

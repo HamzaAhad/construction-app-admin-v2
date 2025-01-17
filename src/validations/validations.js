@@ -22,6 +22,22 @@ export const loginValidation = Yup.object().shape({
   password: Yup.string().min(6, passswodMessage).required(requiredMessage),
 });
 
+export const changePassword = Yup.object().shape({
+  // email: Yup.string().email(emailMessage).required(requiredMessage),
+  email: Yup.string()
+    .required(requiredMessage)
+    .test("is-valid-email-or-phone", invalidMessage, (value) => {
+      // Regular expression for validating email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Regular expression for validating phone number in the format +923472907283
+      const phoneRegex = /^\+\d{12}$/; // Matches + followed by 12 digits
+
+      return emailRegex.test(value) || phoneRegex.test(value);
+    }),
+  password: Yup.string().min(6, passswodMessage).required(requiredMessage),
+});
+
 export const signupValidation = Yup.object().shape({
   firstName: Yup.string().required(requiredMessage),
   lastName: Yup.string().required(requiredMessage),

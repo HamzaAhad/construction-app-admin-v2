@@ -23,6 +23,7 @@ import Cookies from "js-cookie";
 
 /* import validation */
 import { loginValidation } from "@/validations/validations";
+import ForgotPasswordModal from "@/components/login/ForgetPasswordModal";
 
 const Index = () => {
   const router = useRouter();
@@ -97,9 +98,13 @@ const Index = () => {
           router.push("/setup");
         }
       } else {
-        const scopes = response?.data?.userRoles?.scopes;
-        const allowedScope = scopes?.find((s) => s?.permissions?.viewAll);
-        router.push(allowedScope?.page ? allowedScope?.page : "/dashboard");
+        if (!response?.data?.user?.alreadyLoggedIn) {
+          router.push("/change-password");
+        } else {
+          const scopes = response?.data?.userRoles?.scopes;
+          const allowedScope = scopes?.find((s) => s?.permissions?.viewAll);
+          router.push(allowedScope?.page ? allowedScope?.page : "/dashboard");
+        }
       }
     } catch (err) {
       setLoading(false);
@@ -121,7 +126,10 @@ const Index = () => {
       setLoading(false);
     }
   };
-
+  const [openForgetModal, setOpenForgetModal] = useState(false);
+  const handleForgetPassword = () => {
+    setOpenForgetModal(true);
+  };
   return (
     <div className="flex relative flex-col lg:flex-row items-center justify-center min-h-screen">
       <Head>
@@ -191,6 +199,15 @@ const Index = () => {
               error={errors.password}
               extra="text-white lg:text-black"
             />
+            <div
+              className="mt-4 text-left w-[100%] cursor-pointer"
+              onClick={handleForgetPassword}>
+              <span
+                className="text-white px-2 lg:px-0 lg:text-buttonColorPrimary
+                hover:underline">
+                Forgot my password
+              </span>
+            </div>
 
             <FormButton text="Sign In" loading={loading} />
           </form>
@@ -202,6 +219,10 @@ const Index = () => {
             </Link>
           </div>
         </div>
+        <ForgotPasswordModal
+          isOpen={openForgetModal}
+          onClose={() => setOpenForgetModal(false)}
+        />
       </div>
     </div>
   );
