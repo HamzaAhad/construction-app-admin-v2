@@ -14,6 +14,8 @@ import apiClient from "@/helpers/interceptor";
 import { toast } from "react-toastify";
 
 import { checkScope } from "@/helpers/checkScope";
+import { generateRandomPassword } from "@/helpers/generatePassword";
+import axios from "axios";
 
 const Index = ({ scopes }) => {
   const router = useRouter();
@@ -22,11 +24,30 @@ const Index = ({ scopes }) => {
     lastName: "",
     email: "",
     phone: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
+  const [passwordGenerated, setPasswordGenerated] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const handleGeneratePassword = (e) => {
+    e.preventDefault();
+    setPasswordError(false);
+    setGenerating(true);
+    setPasswordGenerated(true);
+    const password = generateRandomPassword(10);
+    console.log("password", password);
+    setFormData((prev) => ({
+      ...prev, // Keep all previous form data
+      password: password, // Update only the password field
+    }));
+    setGenerating(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -61,6 +82,11 @@ const Index = ({ scopes }) => {
     e.preventDefault();
     try {
       await addEmployee.validate(formData, { abortEarly: false });
+      if (!passwordGenerated) {
+        setPasswordError(true);
+        return;
+      }
+
       setErrors({});
       setLoading(true);
       if (formData.phone === "") {
@@ -69,7 +95,31 @@ const Index = ({ scopes }) => {
       if (formData.email === "") {
         delete formData.email;
       }
-      console.log("formData--->", formData);
+      let imgUrl;
+      if (imageFile) {
+        const formData = new FormData();
+        try {
+          if (window != undefined) {
+            const { accessToken } = JSON.parse(
+              localStorage.getItem("loggedInUser")
+            );
+            const response = await axios.post(
+              `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
+
+            imgUrl = response?.data?.fileName;
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
       const response = await apiClient.post("/users", formData);
 
       toast.success(response?.data?.message);
@@ -100,18 +150,22 @@ const Index = ({ scopes }) => {
     { label: "Add Employee", href: null }, // Current page, no link
   ];
 
+  console.log("form data", formData);
   return (
     <PageContainer
       scopes={scopes}
       title="Add Employee"
-      currentPage="Manage Employee"
-    >
-      <div className="p-2 py-20 lg:p-8 w-full lg:w-1/2">
+      currentPage="Manage Employee">
+      <div className="p-2 py-20 lg:p-8 w-full lg:w-2/3 xl:w-1/2">
         <div className="bg-white p-6 shadow-lg rounded-md">
           <Breadcrumb items={breadcrumbItems} /> {/* Add Breadcrumb here */}
           <h1 className="text-2xl font-bold my-4">Add Employee</h1>
           <form onSubmit={handleSubmit}>
-            <AvatarUpload avatar={avatar} setAvatar={setAvatar} />
+            {/* <AvatarUpload
+              avatar={avatar}
+              setAvatar={setAvatar}
+              setImageFile={setImageFile}
+            /> */}
             <InputField
               label="First Name"
               name="firstName"
@@ -152,6 +206,42 @@ const Index = ({ scopes }) => {
               onBlur={() => {}}
               error={errors.phone}
             />
+            <div className="flex flex-col justify-start items-start my-8">
+              <label htmlFor="password" className="block lg:text-gray-700 mb-1">
+                Password
+              </label>
+              <div className="flex justify-between w-full">
+                <input
+                  label="Password"
+                  name="password"
+                  type="text"
+                  placeholder="Generate password"
+                  value={formData.password}
+                  disabled={true}
+                  onChange={() => {}}
+                  onBlur={() => {}}
+                  className={`w-[48%] border text-black ${
+                    passwordError
+                      ? "border-red-500 focus:border-buttonColorPrimary focus:outline-none"
+                      : "border-gray-300 focus:border-buttonColorPrimary focus:outline-none"
+                  } rounded p-2 text-lg`}
+                />
+                <button
+                  onClick={(e) => handleGeneratePassword(e)}
+                  className="w-[48%] bg-buttonColorPrimary text-lg font-bold text-white p-2 rounded hover:bg-buttonColorPrimary transform transition-transform duration-500 ease-in-out hover:bg-blue-600">
+                  {generating ? (
+                    <span className="inline-block w-4 h-4 border-2 border-t-transparent border-white rounded-full animate-spin"></span>
+                  ) : (
+                    "Generate password"
+                  )}
+                </button>
+              </div>
+              {passwordError && (
+                <div className="text-red-500 text-xs mt-1">
+                  Password is required
+                </div>
+              )}
+            </div>
             <FormButton text="Add Employee" loading={loading} />
           </form>
         </div>

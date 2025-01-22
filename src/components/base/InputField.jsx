@@ -11,6 +11,7 @@ const InputField = ({
   placeholder,
   isSignup = false,
   extra,
+  disabled = false,
 }) => {
   return (
     <div className={isSignup ? `mb-2` : "my-8"}>
@@ -24,6 +25,7 @@ const InputField = ({
         onChange={onChange}
         onBlur={onBlur}
         value={value}
+        disabled={disabled}
         placeholder={placeholder}
         className={`mt-1 block w-full p-2 border text-black ${
           error

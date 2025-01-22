@@ -8,10 +8,12 @@ const AvatarUpload = ({
   setAvatar,
   label = "Add Avatar",
   widthHeight,
+  setImageFile = () => {},
 }) => {
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setImageFile(file);
       const imageUrl = URL.createObjectURL(file);
       setAvatar(imageUrl);
     }
