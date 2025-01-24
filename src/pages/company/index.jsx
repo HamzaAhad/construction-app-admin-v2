@@ -38,7 +38,13 @@ const Index = ({ scopes, canEdit = true }) => {
       const response = await apiClient.get("/company");
 
       console.log("User data", response);
-      setData(JSON.parse(JSON.stringify(response?.data?.company))); // Set the fetched data into the state
+      const companyData = response?.data?.company?.length
+                ? [
+                      response?.data?.company?.find((item) => item?.id == 1), // First, find the item where id is 1
+                      ...response?.data?.company?.filter((item) => item?.id != 1), // Add all other items excluding id 1
+                  ]?.filter(Boolean) // Remove any falsy values (if `id: 1` is not found)
+                : [];
+      setData(JSON.parse(JSON.stringify(companyData))); // Set the fetched data into the state
     } catch (err) {
       setError(err); // Handle error
     }
