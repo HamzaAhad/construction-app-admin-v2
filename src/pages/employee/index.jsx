@@ -10,6 +10,7 @@ import EmptyDisplay from "@/components/base/EmptyDisplay";
 import Pagination from "@/components/base/PaginationControls";
 
 import { checkScope } from "@/helpers/checkScope";
+import DeleteRecord from "@/components/categories/DeleteRecord.";
 
 const columns = [
   { name: "ID", minWidth: "70px", key: "id" },
@@ -22,17 +23,19 @@ const columns = [
   { name: "User Stats", minWidth: "150px", key: "viewDetails" },
   { name: "Created By", minWidth: "180px", key: "createdBy" },
   { name: "Created At", minWidth: "180px", key: "createdAt" },
+  { name: "Delete", minWidth: "200px", key: "deleteEmployee" },
 ];
 
 const Index = ({ scopes, canEdit = true }) => {
   const [filterField, setFilterField] = useState("id");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // State for the current page
-
+  const [openDeleteModal, setOpemDeleteModal] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [checkLoading, setChecktLoading] = useState(true); // New loading state
+  const [checkLoading, setChecktLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState(null);
   const router = useRouter();
 
   const fetchData = async () => {
@@ -90,6 +93,11 @@ const Index = ({ scopes, canEdit = true }) => {
   const handleClick = (id) => {
     router.push(`/employee/${id}`);
   };
+  const handleDelete = (id) => {
+    setDeleteId(id);
+    setOpemDeleteModal(true);
+  };
+
   return (
     <PageContainer
       scopes={scopes}
@@ -118,6 +126,7 @@ const Index = ({ scopes, canEdit = true }) => {
               columns={columns}
               rows={paginatedRows}
               handleUpdate={handleClick}
+              handleEmployee={handleDelete}
             />
             <Pagination
               currentPage={currentPage}
@@ -129,6 +138,15 @@ const Index = ({ scopes, canEdit = true }) => {
           <EmptyDisplay />
         )}
       </div>
+      {deleteId && (
+        <DeleteRecord
+          path="users"
+          isOpen={openDeleteModal}
+          onClose={setOpemDeleteModal}
+          refreshList={fetchData}
+          recordId={deleteId}
+        />
+      )}
     </PageContainer>
   );
 };

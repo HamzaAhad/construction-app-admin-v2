@@ -20,6 +20,7 @@ import PreviewForm from "../categories/PreviewForm";
 import ClosedIssue from "../categories/ClosedIssue";
 import { Router, useRouter } from "next/router";
 import apiClient from "@/helpers/interceptor";
+import { FaTrash } from "react-icons/fa";
 
 const Table = ({
   columns,
@@ -40,6 +41,7 @@ const Table = ({
   isViewModal,
   onViewClose,
   handleUpdate,
+  handleEmployee,
   event = false,
   redirect = false,
   redirectUrl,
@@ -552,6 +554,15 @@ const Table = ({
                       className={`bg-buttonColorPrimary p-2 rounded-2xl text-gray-50`}
                       onClick={() => handleUpdate(row.id)}>
                       View Details
+                    </button>
+                  ) : column.key == "deleteEmployee" ? (
+                    <button
+                      className={`bg-white flex justify-center w-[120px]  text-red-500 border border-red-500 p-2 rounded-2xl hover:opacity-[80%]`}
+                      onClick={() => handleEmployee(row.id)}>
+                      <span className="mr-2 mt-1 text-red-500">
+                        <FaTrash />
+                      </span>{" "}
+                      Delete
                     </button>
                   ) : column.key == "roleActions" ? (
                     <div className="flex justify-center space-x-4">
