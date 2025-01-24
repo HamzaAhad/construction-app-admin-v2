@@ -14,15 +14,9 @@ import DeleteRecord from "@/components/categories/DeleteRecord.";
 
 const columns = [
   { name: "ID", minWidth: "70px", key: "id" },
-  { name: "Full Name", minWidth: "180px", key: "fullName" },
-  { name: "Email", minWidth: "250px", key: "email" },
-  { name: "Phone", minWidth: "250px", key: "phone" },
-  { name: "Status", minWidth: "100px", key: "status" },
-  { name: "Inspection Count", minWidth: "250px", key: "inspectionCount" },
-  { name: "Event Count", minWidth: "200px", key: "eventCount" },
-  { name: "User Stats", minWidth: "150px", key: "viewDetails" },
-  { name: "Created By", minWidth: "180px", key: "createdBy" },
-  { name: "Created At", minWidth: "180px", key: "createdAt" },
+  { name: "Company Name", minWidth: "250px", key: "name" },
+  { name: "Owner Email", minWidth: "250px", key: "ownerEmail" },
+  { name: "Created At", minWidth: "150px", key: "createdAt" },
   { name: "Delete", minWidth: "200px", key: "deleteEmployee" },
 ];
 
@@ -41,10 +35,10 @@ const Index = ({ scopes, canEdit = true }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await apiClient.get("/users");
+      const response = await apiClient.get("/company");
 
       console.log("User data", response);
-      setData(JSON.parse(JSON.stringify(response?.data))); // Set the fetched data into the state
+      setData(JSON.parse(JSON.stringify(response?.data?.company))); // Set the fetched data into the state
     } catch (err) {
       setError(err); // Handle error
     }
@@ -91,7 +85,7 @@ const Index = ({ scopes, canEdit = true }) => {
   );
 
   const handleClick = (id) => {
-    router.push(`/employee/${id}`);
+    router.push(`/company/${id}`);
   };
   const handleDelete = (id) => {
     setDeleteId(id);
@@ -99,13 +93,10 @@ const Index = ({ scopes, canEdit = true }) => {
   };
 
   return (
-    <PageContainer
-      scopes={scopes}
-      title="Employees"
-      currentPage="Manage Employee">
+    <PageContainer scopes={scopes} title="Company" currentPage="Manage Company">
       <div className="p-4 sm:p-8 w-full">
         <h1 className="text-2xl text-white lg:text-black font-bold my-4">
-          Employee Listing
+          Company Listing
         </h1>
         <SearchFilter
           searchQuery={searchQuery}
@@ -113,12 +104,13 @@ const Index = ({ scopes, canEdit = true }) => {
           filterField={filterField}
           onFilterChange={handleFilterChange}
           columns={columns}
+          buttonClass="hidden"
           buttonText="Add Employee"
           linkText="employee/add-employee"
-          downloadAble={true}
+          showButton={false}
+          downloadAble={false}
           data={filteredRows}
-          csvName="Employees"
-          canEdit={canEdit}
+          csvName="Company"
         />
         {filteredRows.length > 0 ? (
           <>
@@ -127,6 +119,7 @@ const Index = ({ scopes, canEdit = true }) => {
               rows={paginatedRows}
               handleUpdate={handleClick}
               handleEmployee={handleDelete}
+              isCompanyTab={true}
             />
             <Pagination
               currentPage={currentPage}
@@ -140,7 +133,7 @@ const Index = ({ scopes, canEdit = true }) => {
       </div>
       {deleteId && (
         <DeleteRecord
-          path="users"
+          path="company"
           isOpen={openDeleteModal}
           onClose={setOpemDeleteModal}
           refreshList={fetchData}

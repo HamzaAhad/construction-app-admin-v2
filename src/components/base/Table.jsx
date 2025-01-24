@@ -47,6 +47,7 @@ const Table = ({
   redirectUrl,
   redirectText = "",
   canEdit = true,
+  isCompanyTab = false,
 }) => {
   const [recordId, setRecordId] = useState("");
   const [formFields, setFormFields] = useState(null);
@@ -106,7 +107,7 @@ const Table = ({
   const modifiedColumns = useMemo(() => {
     const newColumns = [...columns]; // Create a shallow copy of columns
 
-    if (isProductOwner) {
+    if (isProductOwner && !isCompanyTab) {
       getCompanies();
       newColumns.splice(2, 0, {
         name: "Company Name",

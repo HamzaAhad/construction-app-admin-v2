@@ -10,6 +10,7 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 import { IoMdKey } from "react-icons/io";
+import { VscOrganization } from "react-icons/vsc";
 
 export const Items = [
   // {
@@ -26,6 +27,11 @@ export const Items = [
     name: "Dashboard",
     link: "/dashboard",
     icon: FaHome,
+  },
+  {
+    name: "Manage Company",
+    link: "/company",
+    icon: VscOrganization,
   },
   {
     name: "Manage Inspection",
